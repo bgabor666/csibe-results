@@ -25,6 +25,8 @@ def copy_csibe_results_from_csv_to_json(csv_path, json_path):
     print csv_contents[4].split(',')[1]
     print json_data
     print json.dumps(json_data, sort_keys=True, indent=4, separators=(',',':'))
+    with open(json_path, 'w') as json_file:
+        json.dump(json_data, json_file, sort_keys=True, indent=4, separators=(',',':'))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -33,4 +35,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    copy_csibe_results_from_csv_to_json(args.csv_path, "/dev/null")
+    copy_csibe_results_from_csv_to_json(args.csv_path, "test.json")
