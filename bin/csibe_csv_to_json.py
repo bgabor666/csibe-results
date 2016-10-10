@@ -14,12 +14,12 @@ def copy_csibe_results_from_csv_to_json(csv_path, json_path):
     print build_date
 
     if not os.path.isfile(json_path):
-        json_data = {'dailyBuilds': {'date': build_date, 'builds': []}}
+        json_data = {'revisions': [], 'date': build_date}
     else:
         with open(json_path) as json_file:
             json_data = json.load(json_file)
     
-    json_data['dailyBuilds']['builds'].append({'revision': llvm_revision})
+    json_data['revisions'].append({llvm_revision: []})
 
     print csv_contents[1].split(',')[1]
     print llvm_revision
