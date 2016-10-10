@@ -11,7 +11,6 @@ def copy_csibe_results_from_csv_to_json(csv_path, json_path):
 
     llvm_revision = csv_contents[4].split(',')[1]
     build_date = os.path.basename(csv_path)[:10]
-    print build_date
 
     if not os.path.isfile(json_path):
         json_data = {'revisions': [], 'date': build_date}
@@ -21,10 +20,8 @@ def copy_csibe_results_from_csv_to_json(csv_path, json_path):
     
     json_data['revisions'].append({llvm_revision: []})
 
-    print csv_contents[1].split(',')[1]
-    print llvm_revision
-    print json_data
     print json.dumps(json_data, sort_keys=True, indent=4, separators=(',',':'))
+
     with open(json_path, 'w') as json_file:
         json.dump(json_data, json_file, sort_keys=True, indent=4, separators=(',',':'))
 
