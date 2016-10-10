@@ -16,13 +16,13 @@ def copy_csibe_results_from_csv_to_json(csv_path, json_path):
     if not os.path.isfile(json_path):
         json_data = {'dailyBuilds': {'date': build_date, 'builds': []}}
     else:
-        # TODO: Open existing json file and read json_data from there.
-        return
+        with open(json_path) as json_file:
+            json_data = json.load(json_file)
     
-    json_data['dailyBuilds']['builds'].append({'revision': csv_contents[4].split(',')[1]})
+    json_data['dailyBuilds']['builds'].append({'revision': llvm_revision})
 
     print csv_contents[1].split(',')[1]
-    print csv_contents[4].split(',')[1]
+    print llvm_revision
     print json_data
     print json.dumps(json_data, sort_keys=True, indent=4, separators=(',',':'))
     with open(json_path, 'w') as json_file:
