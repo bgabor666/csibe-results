@@ -24,6 +24,8 @@ def copy_csibe_results_from_csv_to_json(csv_path, json_path):
             result_dict[project_name] = 0
         result_dict[project_name] += project_result
 
+    result_sum = sum(result_dict.values())
+
     if not os.path.isfile(json_path):
         json_data = {'revisions': {}, 'date': build_date}
     else:
@@ -34,7 +36,7 @@ def copy_csibe_results_from_csv_to_json(csv_path, json_path):
         json_data['revisions'][llvm_revision] = {}
 
     target_flags = csv_contents[1].split(',')[1].split()
-    target_details = {'flags': target_flags, 'projects': result_dict}
+    target_details = {'flags': target_flags, 'projects': result_dict, 'sum': sum(result_dict.values())}
     json_data['revisions'][llvm_revision][target_name] = target_details
 
     print json.dumps(json_data, sort_keys=True, indent=4, separators=(',',':'))
