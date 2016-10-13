@@ -51,4 +51,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    copy_csibe_results_from_csv_to_json(args.csv_path, "test.json")
+    copy_csibe_results_from_csv_to_json(args.csv_path, args.json_path)
