@@ -34,7 +34,7 @@ lnt_json_template = {
                       ]
                     }
 
-def copy_csibe_results_from_csv_to_json(csv_path, json_path):
+def copy_csibe_results_from_csv_to_json(csv_path, json_path, start_time, end_time):
     with open(csv_path) as csv_file:
         csv_contents = csv_file.read().splitlines()
 
@@ -46,8 +46,8 @@ def copy_csibe_results_from_csv_to_json(csv_path, json_path):
 
     json_data = lnt_json_template
     json_data["Machine"]["Name"] = machine_name_base + target_name[12:] 
-    json_data["Run"]["End Time"] = build_date + " " + default_end_time
-    json_data["Run"]["Start Time"] = build_date + " " + default_start_time
+    json_data["Run"]["End Time"] = build_date + " " + end_time
+    json_data["Run"]["Start Time"] = build_date + " " + start_time
     json_data["Run"]["Info"]["run_order"] = llvm_revision
 
     test_result_list = []
@@ -69,7 +69,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--csv-path")
     parser.add_argument("--json-path")
+    parser.add_argument("--start-time")
+    parser.add_argument("--end-time")
 
     args = parser.parse_args()
 
-    copy_csibe_results_from_csv_to_json(args.csv_path, args.json_path)
+    copy_csibe_results_from_csv_to_json(args.csv_path, args.json_path, args.start_time, args.end_time)
